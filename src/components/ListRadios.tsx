@@ -9,8 +9,9 @@ import type { Radio } from "../schema/RadiosSchema";
 const ListRadios = () => {
 
     const updateRadios = useRadioStore((state) => state.setRadios)
+    const updateRadioPlay = useRadioStore((state) => state.setRadioPlay)
     const radioList = useRadioStore((state) => state.radios)
-    
+
 
     useEffect(() => {
         const fetchRadios = async () => {
@@ -25,8 +26,8 @@ const ListRadios = () => {
     }, [])
 
     const handleButtonSelectRadio = (radioselected : Radio) => {
-        const filterRadio = radioList.filter(radio => radio.stationuuid === radioselected.stationuuid )
-        console.log(filterRadio)
+        const filterRadio = radioList.find(radio => radio.stationuuid === radioselected.stationuuid )
+        updateRadioPlay(filterRadio)
     }
 
     return (
