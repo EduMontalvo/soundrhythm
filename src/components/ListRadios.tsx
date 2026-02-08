@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+ "react";
 import { IoPlayCircle } from "react-icons/io5";
 import { FetchApi } from "../utils/fetchapi";
-import type { Radio } from "../schema/RadiosSchema";
 import { formatName } from "../utils/formatname";
 import { useRadioStore } from "../stores/useRadioStore";
+import { useEffect } from "react";
+import type { Radio } from "../schema/RadiosSchema";
 
 const ListRadios = () => {
 
-    const [availableRadios, setAvailableRadios] = useState<Radio[]>([])
     const updateRadios = useRadioStore((state) => state.setRadios)
     const radioList = useRadioStore((state) => state.radios)
     
@@ -16,7 +16,6 @@ const ListRadios = () => {
         const fetchRadios = async () => {
             try {
                 const resultRadios = await FetchApi()
-                setAvailableRadios(resultRadios)
                 updateRadios(resultRadios)
             } catch (error) {
                 console.log('Devolvio error desde la api', error)
@@ -25,8 +24,9 @@ const ListRadios = () => {
         fetchRadios()
     }, [])
 
-    const handleButtonPlay = () => {
-        
+    const handleButtonSelectRadio = (radioselected : Radio) => {
+        const filterRadio = radioList.filter(radio => radio.stationuuid === radioselected.stationuuid )
+        console.log(filterRadio)
     }
 
     return (
@@ -39,7 +39,7 @@ const ListRadios = () => {
                             <h2 className="capitalize text-xl">{formatName(radio.name)}</h2>
                             <p>Ranking Votes: {radio.votes}</p>
                         </div>
-                        <button>
+                        <button onClick={() => handleButtonSelectRadio(radio)}>
                             <IoPlayCircle className="h-12 w-12 text-green-700/60" />
                         </button>
                     </div>
