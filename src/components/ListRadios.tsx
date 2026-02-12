@@ -26,8 +26,10 @@ const ListRadios = () => {
     }, [])
 
     const handleButtonSelectRadio = (radioselected : Radio) => {
-        const filterRadio = radioList.find(radio => radio.stationuuid === radioselected.stationuuid )
-        updateRadioPlay(filterRadio)
+        const findSelectedRadio = radioList.find(radio => radio.stationuuid === radioselected.stationuuid )
+        if(findSelectedRadio){
+            updateRadioPlay(findSelectedRadio)
+        }
     }
 
     return (
@@ -35,8 +37,8 @@ const ListRadios = () => {
             <h2 className="uppercase text-neutral-400 px-4 pt-12 text-xs">discovery</h2>
             {radioList.map((radio) => (
                 <div key={radio.stationuuid}>
-                    <div className="flex justify-between items-center p-4">
-                        <div className="flex flex-col space-y-1">
+                    <div className="flex justify-between items-center p-4 focus:shadow-2xl focus:border-amber-400 focus:border h-[80%] w-[90%] mx-auto">
+                        <div className="flex flex-col space-y-1" >
                             <h2 className="capitalize text-xl">{formatName(radio.name)}</h2>
                             <p>Ranking Votes: {radio.votes}</p>
                         </div>
