@@ -6,16 +6,17 @@ import DefultImg from '../assets/defaultimg.jpg'
 const Hero = () => {
 
   const pickRadio = useRadioStore((state) => state.radioplay)
+  const showCurrentPlaying = useRadioStore((state) => state.isPlaying)
 
   const [img, setImg] = useState(DefultImg)
 
   useEffect(() => {
-    if(pickRadio.favicon){
+    if (pickRadio.favicon) {
       setImg(pickRadio.favicon)
-    }else{
+    } else {
       setImg(DefultImg)
     }
-  },[pickRadio])
+  }, [pickRadio])
 
 
 
@@ -27,9 +28,12 @@ const Hero = () => {
       </div>
 
       <div className='absolute inset-y-20 px-8 text-white space-y-1'>
-        <p className='uppercase text-xs'>currently Playing</p>
+        {
+          showCurrentPlaying && <p className='uppercase text-xs bg-emerald-500 px-2 py-1 w-fit rounded-full'>currently Playing</p>
+        }
+        
         <h2 className='capitalize text-3xl'>{pickRadio.name}</h2>
-        <p className='capitalize text-xs'>{pickRadio.tags}</p>
+        <p className='capitalize text-xs whitespace-nowrap'>{pickRadio.tags}</p>
       </div>
     </div>
   )

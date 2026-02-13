@@ -1,10 +1,10 @@
- "react";
-import { IoPlayCircle } from "react-icons/io5";
 import { FetchApi } from "../utils/fetchapi";
 import { formatName } from "../utils/formatname";
 import { useRadioStore } from "../stores/useRadioStore";
 import { useEffect } from "react";
 import type { Radio } from "../schema/RadiosSchema";
+import { FaPlay } from "react-icons/fa";
+import { SlLike } from "react-icons/sl";
 
 const ListRadios = () => {
 
@@ -25,9 +25,9 @@ const ListRadios = () => {
         fetchRadios()
     }, [])
 
-    const handleButtonSelectRadio = (radioselected : Radio) => {
-        const findSelectedRadio = radioList.find(radio => radio.stationuuid === radioselected.stationuuid )
-        if(findSelectedRadio){
+    const handleButtonSelectRadio = (radioselected: Radio) => {
+        const findSelectedRadio = radioList.find(radio => radio.stationuuid === radioselected.stationuuid)
+        if (findSelectedRadio) {
             updateRadioPlay(findSelectedRadio)
         }
     }
@@ -37,13 +37,16 @@ const ListRadios = () => {
             <h2 className="uppercase text-neutral-400 px-4 pt-12 text-xs">discovery</h2>
             {radioList.map((radio) => (
                 <div key={radio.stationuuid}>
-                    <div className="flex justify-between items-center p-4 focus:shadow-2xl focus:border-amber-400 focus:border h-[80%] w-[90%] mx-auto">
+                    <div className="flex justify-between items-center p-4">
                         <div className="flex flex-col space-y-1" >
                             <h2 className="capitalize text-xl">{formatName(radio.name)}</h2>
-                            <p>Ranking Votes: {radio.votes}</p>
+                            <div className="flex items-center gap-2 text-gray-400 text-xs">
+                                <SlLike />
+                                <p>{radio.votes} Ranking Votes</p>
+                            </div>
                         </div>
-                        <button onClick={() => handleButtonSelectRadio(radio)}>
-                            <IoPlayCircle className="h-12 w-12 text-green-700/60" />
+                        <button onClick={() => handleButtonSelectRadio(radio)} className="border rounded-full p-3 flex items-center justify-center cursor-pointer">
+                            <FaPlay className="h-3 w-3 text-emerald-500" />
                         </button>
                     </div>
                 </div>
