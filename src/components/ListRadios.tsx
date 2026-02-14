@@ -34,12 +34,12 @@ const ListRadios = () => {
 
     return (
         <>
-            <h2 className="uppercase text-neutral-400 px-4 pt-12 text-xs">discovery</h2>
+            <h2 className="uppercase text-neutral-400 px-4 pt-12 text-xs font-bold">discovery</h2>
             {radioList.map((radio) => (
                 <div key={radio.stationuuid}>
                     <div className="flex justify-between items-center p-4">
                         <div className="flex flex-col space-y-1" >
-                            <h2 className="capitalize text-xl">{formatName(radio.name)}</h2>
+                            <h2 className="capitalize text-xl font-semibold">{formatName(radio.name)}</h2>
                             <div className="flex items-center gap-2 text-gray-400 text-xs">
                                 <SlLike />
                                 <p>{radio.votes} Ranking Votes</p>
