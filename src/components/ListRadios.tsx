@@ -1,7 +1,7 @@
 import { FetchApi } from "../utils/fetchapi";
 import { formatName } from "../utils/formatname";
 import { useRadioStore } from "../stores/useRadioStore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import type { Radio } from "../schema/RadiosSchema";
 import { FaPlay } from "react-icons/fa";
 import { SlLike } from "react-icons/sl";
