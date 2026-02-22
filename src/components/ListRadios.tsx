@@ -12,24 +12,19 @@ const ListRadios = () => {
     const updateRadios = useRadioStore((state) => state.setRadios)
     const updateRadioPlay = useRadioStore((state) => state.setRadioPlay)
     const radioList = useRadioStore((state) => state.radios)
-    const [imgBackup, setImgBackup] = useState("")
+    const updateRadiosBackUp = useRadioStore( (state) => state.setBackUp) 
 
     useEffect(() => {
         const fetchRadios = async () => {
             try {
                 const resultRadios = await FetchApi()
                 updateRadios(resultRadios)
+                updateRadiosBackUp(resultRadios)
             } catch (error) {
-                console.log('Devolvio error desde la api', error)
+                console.log('Error desde la api', error)
             }
         }
         fetchRadios()
-
-
-        /* const randomIndex = Math.floor(Math.random() * AlterImage.length)
-        const pickIMG = AlterImage[randomIndex]?.image
-        if (pickIMG) setImgBackup(pickIMG) */
-
     }, [])
 
     const handleButtonSelectRadio = (radioselected: Radio) => {
@@ -39,23 +34,28 @@ const ListRadios = () => {
         }
     }
 
+    const getRandomFallbackImage = () => {
+        const randomIndex = Math.floor(Math.random() * AlterImage.length)
+        return AlterImage[randomIndex]?.image ?? ""
+    }
+
+    const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+        e.currentTarget.src = getRandomFallbackImage()
+    }
 
     return (
         <>
             <h2 className="uppercase text-neutral-400 px-4 pt-12 text-xs font-bold">discovery</h2>
             {radioList.map((radio) => (
-                <div key={radio.stationuuid}>
-                    <div className="flex justify-between items-center p-4">
+                <div key={radio.stationuuid} className="p-2">
+                    <div className="flex justify-between items-center py-4 px-3 bg-gray-400/5 rounded-3xl">
                         <div className="flex gap-4">
-                            {radio.favicon !== ""?
-                                (<img src={radio.favicon} alt="" className="w-10" />)
-                                :
-                                (radio.favicon === null ?
-                                    <img src={imgBackup} alt="" className="w-10" />
-                                    :
-                                    <img src={imgBackup} alt="" className="w-10" />
-                                )
-                            }
+                            <img
+                                src={radio.favicon || getRandomFallbackImage()}
+                                alt={radio.name}
+                                className="w-14 h-14 object-cover rounded-2xl"
+                                onError={handleImageError}
+                            />
                             <div className="flex flex-col space-y-1" >
                                 <h2 className="capitalize text-xl font-semibold">{formatName(radio.name)}</h2>
                                 <div className="flex items-center gap-2 text-gray-400 text-xs">
@@ -65,7 +65,7 @@ const ListRadios = () => {
                             </div>
                         </div>
                         <button onClick={() => handleButtonSelectRadio(radio)} className="border rounded-full p-3 flex items-center justify-center cursor-pointer">
-                            <FaPlay className="h-3 w-3 text-emerald-500" />
+                            <FaPlay className="h-5 w-5 text-emerald-500" />
                         </button>
                     </div>
                 </div>
