@@ -20,12 +20,6 @@ const SearchBar = () => {
     }, [textSearch])
 
     const lookForChances = () => {
-        /* const findRadio = radiosBackup.filter(radio => radio.name.toLowerCase().trim().includes(textSearch.toLowerCase().trim()))
-        if (findRadio.length === 0 || textSearch === "") {
-            setRadios(radiosBackup)
-        } else {
-            setRadios(findRadio)
-        } */
        if(textSearch.trim() === ""){
         setRadios(radiosBackup)
         return

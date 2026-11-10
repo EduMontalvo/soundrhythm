@@ -8,7 +8,7 @@ import { useRadioStore } from "../stores/useRadioStore"
 
 const Home = () => {
 
-  const radioList = useRadioStore((state) => state.radios)
+  const radioList = useRadioStore((state) => state.radiosBackUp)
 
   return (
     <div className="flex flex-col min-h-screen">

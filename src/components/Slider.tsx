@@ -3,6 +3,7 @@ import { useCallback } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import type { Radio } from '../schema/RadiosSchema'
 import { AlterImage } from '../data/data'
+import { ImNext, ImPrevious } from 'react-icons/im'
 
 type SliderProps = {
   slides: Radio[]
@@ -39,9 +40,9 @@ const Slider = ({ slides }: SliderProps) => {
           ))}
         </div>
       </div>
-      <div className='w-[90%] mx-auto flex justify-between'>
-        <button onClick={scrollPrev}>← Anterior</button>
-        <button onClick={scrollNext}>Siguiente →</button>
+      <div className='w-[90%] mx-auto flex gap-2'>
+        <button onClick={scrollPrev} className='h-4'><ImPrevious /></button>
+        <button onClick={scrollNext} className='h-4'><ImNext /></button>
       </div>
     </div>
   )
