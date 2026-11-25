@@ -11,20 +11,18 @@ type SliderProps = {
 
 const Slider = ({ slides }: SliderProps) => {
 
-  const getRandomFallbackImage = () => {
-    const randomIndex = Math.floor(Math.random() * AlterImage.length)
-    return AlterImage[randomIndex]?.image ?? ""
+  const getFallbackImage = (index: number) => {
+    const fallBackIndex = index % AlterImage.length
+    return AlterImage[fallBackIndex]?.image ?? ""
   }
 
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.src = getRandomFallbackImage()
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>, index: number) => {
+    e.currentTarget.src = getFallbackImage(index)
   }
-
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi])
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi])
-
 
   return (
     <div style={{ position: 'relative' }}>
@@ -34,8 +32,12 @@ const Slider = ({ slides }: SliderProps) => {
       <div className="embla" ref={emblaRef}>
         <div className="embla__container">
           {slides.map((src, index) => (
-            <div className="embla__slide" key={index}>
-              <img src={src.favicon || getRandomFallbackImage()} alt={`Slide ${index}`} onError={handleImageError} />
+            <div className="embla__slide" key={src.stationuuid || index}>
+              <img
+                src={src.favicon || getFallbackImage(index)}
+                alt={src.name || `Slide ${index}`}
+                onError={(e) => handleImageError(e, index)}
+              />
             </div>
           ))}
         </div>

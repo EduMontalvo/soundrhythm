@@ -10,25 +10,30 @@ const MusicPlayer = () => {
     const pickRadio = useRadioStore((state) => state.radioplay)
     const isPlaying = useRadioStore((state) => state.isPlaying)
     const setPlaying = useRadioStore((state) => state.setPlaying)
+    const volume = useRadioStore((state) => state.volume)
     const [muted, setMuted] = useState(false)
 
     useEffect(() => {
-        if (AudioRef.current && pickRadio && isPlaying) {
-            AudioRef.current.play()
+        if (AudioRef.current) {
+            AudioRef.current.volume = volume;
+            if (volume > 0 && muted) {
+                AudioRef.current.muted = false;
+                setMuted(false);
+            }
+        }
+    }, [volume, muted]);
+
+    useEffect(() => {
+        if (!AudioRef.current) return;
+        if (pickRadio && isPlaying) {
+            AudioRef.current.play().catch(() => {});
+        } else {
+            AudioRef.current.pause();
         }
     }, [pickRadio, isPlaying])
 
     const handlePlayAndPause = (playingnow: boolean) => {
-        let darkplayingnow = !playingnow
-        if (darkplayingnow) {
-            AudioRef.current?.play()
-            setPlaying(!playingnow)
-            darkplayingnow = !darkplayingnow
-        } else {
-            AudioRef.current?.pause()
-            setPlaying(!playingnow)
-            darkplayingnow = !darkplayingnow
-        }
+        setPlaying(!playingnow);
     }
 
     const handleToggleMute = (muted: boolean) => {
@@ -47,7 +52,7 @@ const MusicPlayer = () => {
     return (
         <>
 
-            <div className="flex justify-between p-5 bottom-0 bg-white sticky">
+            <div id="music-player" className="fixed bottom-0 left-0 right-0 w-full z-50 bg-white border-t border-slate-100 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] p-5 flex justify-between items-center">
                 <div className="flex items-center gap-5">
                     {isPlaying ?
                         (
