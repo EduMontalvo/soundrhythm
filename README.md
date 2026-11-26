@@ -1,75 +1,102 @@
-# React + TypeScript + Vite
+# 🎵 SoundRhythm
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Reproductor web de emisoras de radio en vivo de Perú con estética de tornamesa clásica y controles estilo DJ. Construido con **React 19**, **TypeScript**, **Tailwind CSS v4** y **Zustand**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Características principales
 
-## React Compiler
+- **Tocadiscos interactivo (`TurntablePlayer`)**: Disco de vinilo animado con la carátula de la emisora activa y brazo mecánico que reacciona al estado de reproducción.
+- **Fader de volumen estilo DJ (`VolumeFader`)**: Control vertical táctil (compatible con ratón, teclado, rueda del mouse y pantallas móviles) sincronizado en tiempo real con el reproductor inferior.
+- **Reproductor persistente (`MusicPlayer`)**: Barra inferior fija que mantiene la reproducción continua mientras navegas entre vistas, con controles de play/pausa, anterior/siguiente, botón de **radio aleatoria**, favoritos, control de volumen, visualizador de ecualizador y estados de conexión.
+- **Carrusel de favoritas (`Slider`)**: Muestra tus emisoras guardadas en el navegador (`localStorage`) y utiliza las más votadas como respaldo inicial.
+- **Descubrimiento y búsqueda (`ListRadios` + `SearchBar`)**:
+  - Búsqueda en tiempo real con debounce.
+  - Filtros dinámicos por etiquetas musicales (`#tags`) y ordenamiento por votos o alfabético (`A – Z`).
+  - Carga progresiva de tarjetas para mantener la interfaz fluida.
+- **Filtrado inteligente de emisoras**: Descarta flujos rotos o incompatibles (como streams HLS `.m3u8` o contenido mixto `http://` en HTTPS) y elimina automáticamente de la lista las emisoras que fallen o excedan el tiempo de conexión.
+- **Vistas dedicadas**: Páginas `Home`, `About` y `Contact` integradas con React Router.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Stack tecnológico
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Categoría | Tecnologías |
+| :--- | :--- |
+| **Core** | React 19, TypeScript, Vite (`rolldown-vite`) |
+| **Estilos** | Tailwind CSS v4 (`@tailwindcss/vite`), Plus Jakarta Sans |
+| **Estado y Rutas** | Zustand, React Router DOM |
+| **UI y Carrusel** | Embla Carousel (`embla-carousel-react`), React Icons |
+| **Datos y Validación** | Axios, Zod, [Radio Browser API](https://www.radio-browser.info/) |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📁 Estructura del proyecto
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+src/
+├── components/
+│   ├── ListRadios.tsx        # Grilla responsiva con paginación progresiva y filtros
+│   ├── MusicPlayer.tsx       # Barra de reproducción fija inferior y manejo de audio
+│   ├── NavBar.tsx            # Navegación principal responsiva
+│   ├── SearchBar.tsx         # Barra de búsqueda con debounce
+│   ├── Slider.tsx            # Carrusel Embla conectado a favoritas
+│   ├── TurntablePlayer.tsx   # Tocadiscos SVG animado con vinilo y brazo
+│   └── VolumeFader.tsx       # Control vertical de volumen estilo DJ
+├── Layout/
+│   └── Layout.tsx            # Estructura fija (cabecera + contenido + reproductor)
+├── schema/
+│   └── RadiosSchema.ts       # Esquema Zod para validar respuestas de la API
+├── stores/
+│   └── useRadioStore.ts      # Estado global (emisoras, reproducción, volumen, favoritas)
+├── utils/
+│   ├── fetchapi.ts           # Consulta a Radio Browser API (estaciones de Perú)
+│   ├── FilterRadio.ts        # Filtrado de streams reproducibles y caché local de caídas
+│   └── formatname.ts         # Formateo de nombres largos de emisoras
+├── views/
+│   ├── Home.tsx              # Vista principal (tocadiscos, carrusel y listado)
+│   ├── About.tsx             # Información del proyecto y stack
+│   └── Contact.tsx           # Canales directos y formulario mailto
+└── router.tsx                # Definición de rutas con React Router
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Instalación y uso local
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-# radio2.0
-# radio2.0
+1. **Clona el repositorio**
+   ```bash
+   git clone https://github.com/EduMontalvo/soundrhythm.git
+   cd soundrhythm
+   ```
+
+2. **Instala las dependencias**
+   ```bash
+   npm install
+   ```
+
+3. **Inicia el servidor de desarrollo**
+   ```bash
+   npm run dev
+   ```
+
+### Scripts disponibles
+
+| Comando | Descripción |
+| :--- | :--- |
+| `npm run dev` | Levanta el entorno de desarrollo con Vite |
+| `npm run build` | Compila TypeScript (`tsc -b`) y genera el build de producción |
+| `npm run lint` | Ejecuta ESLint sobre el proyecto |
+| `npm run preview` | Previsualiza localmente el build de producción |
+
+---
+
+## 🌐 Fuente de datos
+
+El listado de emisoras se obtiene dinámicamente desde la API pública y de código abierto [Radio Browser](https://www.radio-browser.info/).
+
+---
+
+## 👤 Autor
+
+Desarrollado por **EduMontalvo** — [GitHub](https://github.com/EduMontalvo/soundrhythm)

@@ -9,8 +9,11 @@ export const RadioSchema = z.object({
     country: z.string(),
     countrycode: z.string(),
     state: z.string().optional(),
-    votes: z.number()
-}) 
+    votes: z.number(),
+    lastcheckok: z.number().optional(),
+    hls: z.number().optional(),
+    codec: z.string().optional(),
+})
 
 export const RadiosSchema = z.array(RadioSchema)
 

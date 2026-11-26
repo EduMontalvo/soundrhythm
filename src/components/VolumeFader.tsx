@@ -90,11 +90,12 @@ const VolumeFader: React.FC<VolumeFaderProps> = ({ volume, onChange }) => {
 
       {/* Main Fader Housing / Bezel */}
       <div
-        className="relative flex items-center justify-between w-[58px] sm:w-[64px] h-[200px] sm:h-[220px] px-2 py-4 rounded-xl border-2 border-neutral-700/70 bg-gradient-to-b from-neutral-900 via-neutral-950 to-neutral-900 shadow-[inset_0_2px_6px_rgba(0,0,0,0.8),0_6px_16px_rgba(0,0,0,0.3)] cursor-pointer"
+        className="relative flex items-center justify-between w-[58px] sm:w-[64px] h-[200px] sm:h-[220px] px-2 py-4 rounded-xl border-2 border-neutral-700/70 bg-gradient-to-b from-neutral-900 via-neutral-950 to-neutral-900 shadow-[inset_0_2px_6px_rgba(0,0,0,0.8),0_6px_16px_rgba(0,0,0,0.3)] cursor-pointer touch-none overscroll-none"
         onWheel={handleWheel}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
         onKeyDown={handleKeyDown}
         tabIndex={0}
         role="slider"
