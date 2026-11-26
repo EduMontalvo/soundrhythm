@@ -105,7 +105,7 @@ const About = () => {
                     <p className="text-[11px] font-bold uppercase tracking-widest text-emerald-600">
                         Experiencia
                     </p>
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight mt-0.5">
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight mt-0.5">
                         Pensado para disfrutar la radio
                     </h2>
                 </div>
@@ -116,15 +116,15 @@ const About = () => {
                         return (
                             <article
                                 key={item.title}
-                                className="p-5 rounded-2xl border border-slate-200/80 bg-white hover:border-emerald-500/30 hover:shadow-md transition-[border-color,box-shadow] duration-150"
+                                className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900/80 hover:border-emerald-500/30 dark:hover:border-emerald-500/40 hover:shadow-md transition-[border-color,box-shadow] duration-150"
                             >
-                                <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3.5">
+                                <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-3.5">
                                     <Icon className="w-5 h-5" />
                                 </div>
-                                <h3 className="text-base font-bold text-slate-800">
+                                <h3 className="text-base font-bold text-slate-800 dark:text-slate-100">
                                     {item.title}
                                 </h3>
-                                <p className="text-sm text-slate-500 mt-1.5 leading-relaxed">
+                                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
                                     {item.description}
                                 </p>
                             </article>
@@ -135,16 +135,16 @@ const About = () => {
 
             {/* ── Solo Creator + Stack & Credits ── */}
             <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-6 rounded-2xl border border-slate-200/80 bg-slate-50/70 flex flex-col justify-between">
+                <div className="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/60 flex flex-col justify-between">
                     <div>
-                        <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                        <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                             <IoCodeSlash className="w-4 h-4 text-emerald-500" />
                             Proyecto independiente
                         </div>
-                        <h3 className="text-lg font-bold text-slate-800">
+                        <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">
                             Hecho por un solo desarrollador
                         </h3>
-                        <p className="text-sm text-slate-500 mt-2 leading-relaxed">
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
                             Diseño, estado global, reproductor y optimización construidos paso a
                             paso como proyecto personal. Si encuentras algún detalle por mejorar o
                             quieres proponer una mejora, tu feedback es bienvenido.
@@ -154,7 +154,7 @@ const About = () => {
                     <div className="mt-5">
                         <Link
                             to="/contact"
-                            className="inline-flex items-center gap-1.5 text-sm font-bold text-emerald-600 hover:text-emerald-700 transition-colors"
+                            className="inline-flex items-center gap-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
                         >
                             Ir a contacto
                             <IoArrowForward className="w-4 h-4" />
@@ -162,20 +162,20 @@ const About = () => {
                     </div>
                 </div>
 
-                <div className="p-6 rounded-2xl border border-slate-200/80 bg-white flex flex-col justify-between">
+                <div className="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900/80 flex flex-col justify-between">
                     <div>
-                        <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                        <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                             <IoGlobeOutline className="w-4 h-4 text-emerald-500" />
                             Tecnología & Datos abiertos
                         </div>
-                        <h3 className="text-lg font-bold text-slate-800">
+                        <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">
                             Stack y fuente de emisoras
                         </h3>
                         <div className="flex flex-wrap gap-2 mt-3">
                             {TECH_STACK.map((tech) => (
                                 <span
                                     key={tech}
-                                    className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700"
+                                    className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
                                 >
                                     {tech}
                                 </span>
@@ -183,13 +183,13 @@ const About = () => {
                         </div>
                     </div>
 
-                    <p className="text-xs text-slate-400 mt-5 leading-relaxed">
+                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-5 leading-relaxed">
                         Directorio de emisoras impulsado por la API abierta de{" "}
                         <a
                             href="https://www.radio-browser.info/"
                             target="_blank"
                             rel="noreferrer"
-                            className="text-emerald-600 hover:underline font-semibold"
+                            className="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold"
                         >
                             Radio Browser
                         </a>

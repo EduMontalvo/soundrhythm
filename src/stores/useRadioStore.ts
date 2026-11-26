@@ -3,6 +3,40 @@ import type { Radio } from '../schema/RadiosSchema'
 import { markStationUnavailable } from '../utils/FilterRadio'
 
 const FAVORITES_STORAGE_KEY = 'soundrhythm:favorite_radios'
+const THEME_STORAGE_KEY = 'soundrhythm:theme'
+
+export type ThemeMode = 'light' | 'dark'
+
+const applyThemeClass = (theme: ThemeMode): void => {
+    if (typeof document === 'undefined') return
+    document.documentElement.classList.toggle('dark', theme === 'dark')
+}
+
+const loadInitialTheme = (): ThemeMode => {
+    if (typeof window === 'undefined') return 'light'
+    try {
+        const stored = window.localStorage.getItem(THEME_STORAGE_KEY)
+        if (stored === 'light' || stored === 'dark') {
+            applyThemeClass(stored)
+            return stored
+        }
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        const resolved: ThemeMode = prefersDark ? 'dark' : 'light'
+        applyThemeClass(resolved)
+        return resolved
+    } catch {
+        return 'light'
+    }
+}
+
+const saveTheme = (theme: ThemeMode): void => {
+    if (typeof window === 'undefined') return
+    try {
+        window.localStorage.setItem(THEME_STORAGE_KEY, theme)
+    } catch {
+        // Ignore storage quota or privacy mode errors
+    }
+}
 
 const loadFavoriteIds = (): string[] => {
     if (typeof window === 'undefined') return []
@@ -35,6 +69,7 @@ interface RadioStoreState {
     volume: number,
     rankingLocal: Radio[],
     favoriteIds: string[],
+    theme: ThemeMode,
     setRadios: (radios: Radio[]) => void
     setBackUp: (radios: Radio[]) => void
     setRadioPlay: (newRadio: Radio) => void
@@ -42,6 +77,7 @@ interface RadioStoreState {
     setVolume: (volume: number) => void
     setRankingLocal: (radio: Radio) => void
     toggleFavorite: (stationuuid: string) => void
+    toggleTheme: () => void
     removeUnavailableRadio: (stationuuid: string) => void
 }
 
@@ -53,6 +89,7 @@ export const useRadioStore = create<RadioStoreState>((set) => ({
     volume: 0.8,
     rankingLocal: [],
     favoriteIds: loadFavoriteIds(),
+    theme: loadInitialTheme(),
     setRadios: (radios) => set({ radios }),
     setBackUp: (radios) => set({ radiosBackUp: radios }),
     setRadioPlay: (radio) => set({ radioplay: radio, isPlaying: true }),
@@ -68,6 +105,14 @@ export const useRadioStore = create<RadioStoreState>((set) => ({
                 : [stationuuid, ...state.favoriteIds]
             saveFavoriteIds(nextFavorites)
             return { favoriteIds: nextFavorites }
+        })
+    },
+    toggleTheme: () => {
+        set((state) => {
+            const nextTheme: ThemeMode = state.theme === 'dark' ? 'light' : 'dark'
+            applyThemeClass(nextTheme)
+            saveTheme(nextTheme)
+            return { theme: nextTheme }
         })
     },
     removeUnavailableRadio: (stationuuid) => {
