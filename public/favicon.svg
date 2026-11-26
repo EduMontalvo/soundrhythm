@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <!-- Background disc gradient -->
+    <radialGradient id="discGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="65%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </radialGradient>
+    <!-- Emerald center gradient -->
+    <radialGradient id="emeraldGrad" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Outer vinyl / disc circle -->
+  <circle cx="32" cy="32" r="30" fill="url(#discGrad)"/>
+  
+  <!-- Subtle vinyl grooves -->
+  <circle cx="32" cy="32" r="26" fill="none" stroke="#334155" stroke-width="0.8" opacity="0.6"/>
+  <circle cx="32" cy="32" r="22" fill="none" stroke="#334155" stroke-width="0.6" opacity="0.5"/>
+  <circle cx="32" cy="32" r="18" fill="none" stroke="#334155" stroke-width="0.8" opacity="0.6"/>
+
+  <!-- Emerald center label -->
+  <circle cx="32" cy="32" r="13" fill="url(#emeraldGrad)"/>
+
+  <!-- Center spindle hole -->
+  <circle cx="32" cy="32" r="3.5" fill="#020617"/>
+
+  <!-- Dynamic soundwave / equalizer wave badge in center -->
+  <path d="M 23 32 A 9 9 0 0 1 41 32" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+</svg>
