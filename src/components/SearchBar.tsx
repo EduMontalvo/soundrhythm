@@ -40,7 +40,7 @@ const SearchBar = () => {
                 <input
                     onChange={handleChangeInput}
                     value={textSearch}
-                    className="w-full pl-11 pr-11 py-3 bg-slate-100/90 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800/90 border border-transparent dark:border-slate-800/70 focus:border-emerald-500/30 dark:focus:border-emerald-500/40 rounded-2xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:bg-white dark:focus:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                    className="w-full pl-11 pr-11 py-3 bg-slate-100/90 dark:bg-neutral-900 hover:bg-slate-100 dark:hover:bg-neutral-800/90 border border-transparent dark:border-neutral-800 focus:border-emerald-500/30 dark:focus:border-emerald-500/40 rounded-2xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:bg-white dark:focus:bg-neutral-900 text-slate-800 dark:text-neutral-100 placeholder:text-slate-400 dark:placeholder:text-neutral-500"
                     placeholder="Search radio stations or artists"
                     type="text"
                 />
@@ -48,7 +48,7 @@ const SearchBar = () => {
                     <button
                         type="button"
                         onClick={handleCleanButton}
-                        className="absolute right-3.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-90"
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-slate-200/80 dark:bg-neutral-800 hover:bg-slate-300 dark:hover:bg-neutral-700 text-slate-500 dark:text-neutral-400 hover:text-slate-800 dark:hover:text-neutral-100 flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-90"
                         title="Limpiar búsqueda"
                         aria-label="Limpiar búsqueda"
                     >

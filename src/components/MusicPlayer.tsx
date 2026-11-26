@@ -206,10 +206,10 @@ const MusicPlayer = () => {
         : [];
 
     const renderVolumeIcon = () => {
-        if (muted || volume === 0) return <IoVolumeMute className="w-5 h-5 text-slate-400 dark:text-slate-500" />;
-        if (volume < 0.35) return <IoVolumeLow className="w-5 h-5 text-slate-600 dark:text-slate-300" />;
-        if (volume < 0.7) return <IoVolumeMedium className="w-5 h-5 text-slate-600 dark:text-slate-300" />;
-        return <IoVolumeHigh className="w-5 h-5 text-slate-700 dark:text-slate-200" />;
+        if (muted || volume === 0) return <IoVolumeMute className="w-5 h-5 text-slate-400 dark:text-neutral-500" />;
+        if (volume < 0.35) return <IoVolumeLow className="w-5 h-5 text-slate-600 dark:text-neutral-300" />;
+        if (volume < 0.7) return <IoVolumeMedium className="w-5 h-5 text-slate-600 dark:text-neutral-300" />;
+        return <IoVolumeHigh className="w-5 h-5 text-slate-700 dark:text-neutral-200" />;
     };
 
     const statusBadge = () => {
@@ -249,10 +249,10 @@ const MusicPlayer = () => {
         <aside
             id="music-player"
             aria-label="Reproductor de radio"
-            className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-t border-slate-200/80 dark:border-slate-800/80 shadow-[0_-8px_30px_rgba(15,23,42,0.08)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.45)] transition-colors duration-200"
+            className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-black/95 backdrop-blur-xl border-t border-slate-200/80 dark:border-neutral-800/80 shadow-[0_-8px_30px_rgba(15,23,42,0.08)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.7)] transition-colors duration-200"
         >
             {/* Top status hairline */}
-            <div className="h-[2px] w-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+            <div className="h-[2px] w-full bg-slate-100 dark:bg-neutral-800 overflow-hidden">
                 {effectiveStatus === "playing" && (
                     <div className="h-full w-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-teal-400" />
                 )}
@@ -272,7 +272,7 @@ const MusicPlayer = () => {
                             className={`w-12 h-12 rounded-xl overflow-hidden flex items-center justify-center border transition-all duration-300 ${
                                 effectiveStatus === "playing"
                                     ? "border-emerald-400/60 shadow-md shadow-emerald-500/15"
-                                    : "border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900"
+                                    : "border-slate-200 dark:border-neutral-800 bg-slate-100 dark:bg-neutral-900"
                             }`}
                         >
                             {hasStation && showCover ? (
@@ -320,7 +320,7 @@ const MusicPlayer = () => {
                                 <div className="flex items-center gap-2 min-w-0">
                                     <h2
                                         title={pickRadio.name}
-                                        className="font-bold text-sm text-slate-800 dark:text-slate-100 truncate"
+                                        className="font-bold text-sm text-slate-800 dark:text-neutral-100 truncate"
                                     >
                                         {formatName(pickRadio.name)}
                                     </h2>
@@ -343,7 +343,7 @@ const MusicPlayer = () => {
                                         className={`shrink-0 p-1 rounded-full transition-colors cursor-pointer active:scale-90 ${
                                             isCurrentFavorite
                                                 ? "text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/15"
-                                                : "text-slate-400 dark:text-slate-500 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-slate-800"
+                                                : "text-slate-400 dark:text-neutral-500 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-neutral-800"
                                         }`}
                                     >
                                         {isCurrentFavorite ? (
@@ -356,7 +356,7 @@ const MusicPlayer = () => {
 
                                 <div className="flex items-center gap-1.5 mt-0.5 min-w-0 overflow-hidden">
                                     {pickRadio.countrycode && (
-                                        <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                                        <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-500 dark:text-neutral-300 bg-slate-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded">
                                             {pickRadio.countrycode}
                                         </span>
                                     )}
@@ -364,13 +364,13 @@ const MusicPlayer = () => {
                                         parsedTags.map((tag) => (
                                             <span
                                                 key={tag}
-                                                className="text-[11px] text-slate-400 dark:text-slate-500 capitalize truncate"
+                                                className="text-[11px] text-slate-400 dark:text-neutral-500 capitalize truncate"
                                             >
                                                 #{tag}
                                             </span>
                                         ))
                                     ) : (
-                                        <span className="text-[11px] text-slate-400 dark:text-slate-500 truncate">
+                                        <span className="text-[11px] text-slate-400 dark:text-neutral-500 truncate">
                                             {pickRadio.country || "Radio en línea"}
                                         </span>
                                     )}
@@ -378,12 +378,12 @@ const MusicPlayer = () => {
                             </>
                         ) : (
                             <>
-                                <h2 className="font-semibold text-sm text-slate-700 dark:text-slate-200 truncate">
+                                <h2 className="font-semibold text-sm text-slate-700 dark:text-neutral-200 truncate">
                                     {removedNotice ? "Emisora eliminada" : "Sin emisora seleccionada"}
                                 </h2>
                                 <p
                                     className={`text-xs truncate ${
-                                        removedNotice ? "text-amber-600 dark:text-amber-400 font-medium" : "text-slate-400 dark:text-slate-500"
+                                        removedNotice ? "text-amber-600 dark:text-amber-400 font-medium" : "text-slate-400 dark:text-neutral-500"
                                     }`}
                                 >
                                     {removedNotice ?? "Elige una radio o presiona Play"}
@@ -401,7 +401,7 @@ const MusicPlayer = () => {
                         disabled={stationList.length === 0}
                         aria-label="Elegir radio aleatoria"
                         title="Elegir radio aleatoria"
-                        className="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-500/15 disabled:opacity-35 disabled:pointer-events-none transition-colors cursor-pointer active:scale-95"
+                        className="p-2 rounded-full text-slate-500 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-500/15 disabled:opacity-35 disabled:pointer-events-none transition-colors cursor-pointer active:scale-95"
                     >
                         <IoDiceOutline className="w-4 h-4 sm:w-5 sm:h-5" />
                     </button>
@@ -412,7 +412,7 @@ const MusicPlayer = () => {
                         disabled={stationList.length === 0}
                         aria-label="Emisora anterior"
                         title="Emisora anterior"
-                        className="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-35 disabled:pointer-events-none transition-colors cursor-pointer active:scale-95"
+                        className="p-2 rounded-full text-slate-500 dark:text-neutral-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-neutral-800 disabled:opacity-35 disabled:pointer-events-none transition-colors cursor-pointer active:scale-95"
                     >
                         <IoPlaySkipBack className="w-4 h-4 sm:w-5 sm:h-5" />
                     </button>
@@ -430,7 +430,7 @@ const MusicPlayer = () => {
                         className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-95 disabled:opacity-40 disabled:pointer-events-none ${
                             isPlaying
                                 ? "bg-emerald-500 hover:bg-emerald-600 text-white shadow-md shadow-emerald-500/30"
-                                : "bg-slate-900 dark:bg-emerald-500 hover:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-slate-950 shadow-md shadow-slate-900/15"
+                                : "bg-slate-900 dark:bg-emerald-500 hover:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-black shadow-md shadow-slate-900/15"
                         }`}
                     >
                         {effectiveStatus === "loading" ? (
@@ -448,7 +448,7 @@ const MusicPlayer = () => {
                         disabled={stationList.length === 0}
                         aria-label="Siguiente emisora"
                         title="Siguiente emisora"
-                        className="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-35 disabled:pointer-events-none transition-colors cursor-pointer active:scale-95"
+                        className="p-2 rounded-full text-slate-500 dark:text-neutral-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-neutral-800 disabled:opacity-35 disabled:pointer-events-none transition-colors cursor-pointer active:scale-95"
                     >
                         <IoPlaySkipForward className="w-4 h-4 sm:w-5 sm:h-5" />
                     </button>
@@ -473,7 +473,7 @@ const MusicPlayer = () => {
                         onClick={handleToggleMute}
                         aria-label={muted ? "Activar sonido" : "Silenciar"}
                         title={muted ? "Activar sonido" : "Silenciar"}
-                        className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer active:scale-95"
+                        className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer active:scale-95"
                     >
                         {renderVolumeIcon()}
                     </button>
@@ -489,10 +489,10 @@ const MusicPlayer = () => {
                             aria-label="Volumen"
                             className="w-full h-1.5 rounded-full appearance-none cursor-pointer accent-emerald-500"
                             style={{
-                                background: `linear-gradient(to right, #10b981 ${volumePercent}%, ${theme === "dark" ? "#334155" : "#e2e8f0"} ${volumePercent}%)`,
+                                background: `linear-gradient(to right, #10b981 ${volumePercent}%, ${theme === "dark" ? "#262626" : "#e2e8f0"} ${volumePercent}%)`,
                             }}
                         />
-                        <span className="text-[11px] font-mono font-semibold text-slate-400 dark:text-slate-500 w-8 text-right tabular-nums">
+                        <span className="text-[11px] font-mono font-semibold text-slate-400 dark:text-neutral-500 w-8 text-right tabular-nums">
                             {volumePercent}%
                         </span>
                     </div>

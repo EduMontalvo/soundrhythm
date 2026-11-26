@@ -50,7 +50,7 @@ const SlideCard = memo(function SlideCard({
                 className={`group relative h-48 sm:h-52 rounded-2xl overflow-hidden border cursor-pointer select-none transition-[border-color,box-shadow] duration-200 ${
                     isSelected
                         ? 'border-emerald-400 shadow-lg shadow-emerald-500/20'
-                        : 'border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-md'
+                        : 'border-slate-200/80 dark:border-neutral-800 hover:border-slate-300 dark:hover:border-neutral-700 hover:shadow-md'
                 }`}
             >
                 <img
@@ -224,7 +224,7 @@ const Slider = ({ slides }: SliderProps) => {
                     </div>
 
                     <div className="flex items-center gap-2.5 flex-wrap">
-                        <h2 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight">
+                        <h2 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-neutral-100 tracking-tight">
                             {showingFavorites ? 'Tus favoritas' : 'Your Favorites'}
                         </h2>
                         {showingFavorites ? (
@@ -232,7 +232,7 @@ const Slider = ({ slides }: SliderProps) => {
                                 {favoriteRadios.length}
                             </span>
                         ) : (
-                            <span className="text-xs text-slate-400 dark:text-slate-500">
+                            <span className="text-xs text-slate-400 dark:text-neutral-500">
                                 Pulsa ♥ en cualquier radio para fijarla aquí
                             </span>
                         )}
@@ -246,7 +246,7 @@ const Slider = ({ slides }: SliderProps) => {
                             type="button"
                             onClick={scrollPrev}
                             aria-label="Anterior en carrusel"
-                            className="w-9 h-9 rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center justify-center transition-colors cursor-pointer active:scale-95"
+                            className="w-9 h-9 rounded-full border border-slate-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-slate-600 dark:text-neutral-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-neutral-700 hover:bg-slate-50 dark:hover:bg-neutral-800 flex items-center justify-center transition-colors cursor-pointer active:scale-95"
                         >
                             <IoChevronBack className="w-4 h-4" />
                         </button>
@@ -254,7 +254,7 @@ const Slider = ({ slides }: SliderProps) => {
                             type="button"
                             onClick={scrollNext}
                             aria-label="Siguiente en carrusel"
-                            className="w-9 h-9 rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center justify-center transition-colors cursor-pointer active:scale-95"
+                            className="w-9 h-9 rounded-full border border-slate-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-slate-600 dark:text-neutral-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-neutral-700 hover:bg-slate-50 dark:hover:bg-neutral-800 flex items-center justify-center transition-colors cursor-pointer active:scale-95"
                         >
                             <IoChevronForward className="w-4 h-4" />
                         </button>
@@ -268,7 +268,7 @@ const Slider = ({ slides }: SliderProps) => {
                     {Array.from({ length: 4 }).map((_, idx) => (
                         <div
                             key={idx}
-                            className="flex-[0_0_78%] sm:flex-[0_0_46%] md:flex-[0_0_31%] lg:flex-[0_0_24%] h-48 sm:h-52 rounded-2xl bg-slate-100 dark:bg-slate-800/70 animate-pulse"
+                            className="flex-[0_0_78%] sm:flex-[0_0_46%] md:flex-[0_0_31%] lg:flex-[0_0_24%] h-48 sm:h-52 rounded-2xl bg-slate-100 dark:bg-neutral-900 animate-pulse"
                         />
                     ))}
                 </div>
