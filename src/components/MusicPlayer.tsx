@@ -17,6 +17,7 @@ import {
 import type { Radio } from "../schema/RadiosSchema";
 import { useRadioStore } from "../stores/useRadioStore";
 import { formatName } from "../utils/formatname";
+import { getStationLogo } from "../utils/stationLogo";
 
 type StreamStatus = "idle" | "loading" | "playing" | "paused" | "error";
 
@@ -189,7 +190,10 @@ const MusicPlayer = () => {
         audioRef.current.play().catch(() => {});
     };
 
-    const showCover = Boolean(pickRadio?.favicon && failedCoverUrl !== pickRadio.favicon);
+    const coverSrc = hasStation
+        ? getStationLogo(pickRadio.name, pickRadio.favicon, 0)
+        : "";
+    const showCover = Boolean(coverSrc && failedCoverUrl !== coverSrc);
     const volumePercent = muted ? 0 : Math.round(volume * 100);
 
     const parsedTags = pickRadio?.tags
@@ -272,10 +276,10 @@ const MusicPlayer = () => {
                         >
                             {hasStation && showCover ? (
                                 <img
-                                    src={pickRadio.favicon}
+                                    src={coverSrc}
                                     alt={pickRadio.name}
                                     className="w-full h-full object-cover"
-                                    onError={() => setFailedCoverUrl(pickRadio.favicon ?? null)}
+                                    onError={() => setFailedCoverUrl(coverSrc)}
                                 />
                             ) : (
                                 <div className="w-full h-full bg-gradient-to-br from-neutral-800 to-neutral-950 flex items-center justify-center">

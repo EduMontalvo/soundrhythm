@@ -10,17 +10,14 @@ import {
     IoPlay,
     IoSparkles,
 } from 'react-icons/io5';
-import { AlterImage } from '../data/data';
 import type { Radio } from '../schema/RadiosSchema';
 import { useRadioStore } from '../stores/useRadioStore';
 import { formatName } from '../utils/formatname';
+import { getStationLogo } from '../utils/stationLogo';
 
 type SliderProps = {
     slides?: Radio[];
 };
-
-const getDeterministicFallback = (index: number) =>
-    AlterImage[index % AlterImage.length]?.image ?? '';
 
 interface SlideCardProps {
     radio: Radio;
@@ -43,10 +40,8 @@ const SlideCard = memo(function SlideCard({
 }: SlideCardProps) {
     const [failedUrl, setFailedUrl] = useState<string | null>(null);
 
-    const coverSrc =
-        radio.favicon && failedUrl !== radio.favicon
-            ? radio.favicon
-            : getDeterministicFallback(index);
+    const resolvedLogo = getStationLogo(radio.name, radio.favicon, index);
+    const coverSrc = failedUrl === resolvedLogo ? getStationLogo('', undefined, index) : resolvedLogo;
 
     return (
         <div className="flex-[0_0_78%] sm:flex-[0_0_46%] md:flex-[0_0_31%] lg:flex-[0_0_24%] min-w-0 pr-3.5">
@@ -64,8 +59,8 @@ const SlideCard = memo(function SlideCard({
                     loading="lazy"
                     decoding="async"
                     onError={() => {
-                        if (radio.favicon && failedUrl !== radio.favicon) {
-                            setFailedUrl(radio.favicon);
+                        if (resolvedLogo && failedUrl !== resolvedLogo) {
+                            setFailedUrl(resolvedLogo);
                         }
                     }}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"

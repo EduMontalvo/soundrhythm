@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { getStationLogo } from "../utils/stationLogo";
 import { useRadioStore } from "../stores/useRadioStore";
 import VolumeFader from "./VolumeFader";
 
@@ -13,10 +14,6 @@ function VinylDisc({
     stationName?: string;
 }) {
     const [imgErr, setImgErr] = useState(false);
-
-    useEffect(() => {
-        setImgErr(false);
-    }, [coverUrl]);
 
     const hasValidCover = Boolean(coverUrl && !imgErr);
 
@@ -311,8 +308,9 @@ const TurntablePlayer = () => {
                         style={{ inset: "14px" }}
                     >
                         <VinylDisc
+                            key={pickRadio?.stationuuid ?? "idle"}
                             spinning={isPlaying}
-                            coverUrl={pickRadio?.favicon}
+                            coverUrl={pickRadio ? getStationLogo(pickRadio.name, pickRadio.favicon, 0) : undefined}
                             stationName={pickRadio?.name}
                         />
                     </div>

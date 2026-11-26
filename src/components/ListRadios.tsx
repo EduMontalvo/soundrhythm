@@ -9,11 +9,11 @@ import {
     IoRefresh,
     IoThumbsUpOutline,
 } from "react-icons/io5";
-import { AlterImage } from "../data/data";
 import type { Radio } from "../schema/RadiosSchema";
 import { useRadioStore } from "../stores/useRadioStore";
 import { FetchApi } from "../utils/fetchapi";
 import { formatName } from "../utils/formatname";
+import { getStationLogo } from "../utils/stationLogo";
 
 type SortMode = "votes" | "name";
 
@@ -25,9 +25,6 @@ const EQ_BARS = [
     { delay: "140ms", duration: "600ms" },
     { delay: "60ms", duration: "520ms" },
 ];
-
-const getDeterministicFallback = (index: number) =>
-    AlterImage[index % AlterImage.length]?.image ?? "";
 
 const parseStationTags = (tags?: string, limit = 2) => {
     if (!tags) return [];
@@ -57,13 +54,11 @@ const RadioCard = memo(function RadioCard({
     onSelect,
     onToggleFavorite,
 }: RadioCardProps) {
-    // Local error state avoids triggering parent list re-renders on broken favicons
+    // Local error state: if the resolved logo URL fails, fall back to deterministic generic
     const [failedUrl, setFailedUrl] = useState<string | null>(null);
 
-    const coverSrc =
-        radio.favicon && failedUrl !== radio.favicon
-            ? radio.favicon
-            : getDeterministicFallback(index);
+    const resolvedLogo = getStationLogo(radio.name, radio.favicon, index);
+    const coverSrc = failedUrl === resolvedLogo ? getStationLogo("", undefined, index) : resolvedLogo;
 
     const tags = parseStationTags(radio.tags, 2);
 
@@ -88,8 +83,8 @@ const RadioCard = memo(function RadioCard({
                             isThisPlaying ? "border-emerald-400 shadow-sm" : "border-slate-100"
                         }`}
                         onError={() => {
-                            if (radio.favicon && failedUrl !== radio.favicon) {
-                                setFailedUrl(radio.favicon);
+                            if (resolvedLogo && failedUrl !== resolvedLogo) {
+                                setFailedUrl(resolvedLogo);
                             }
                         }}
                     />
