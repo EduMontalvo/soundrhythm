@@ -310,7 +310,7 @@ const TurntablePlayer = () => {
                         <VinylDisc
                             key={pickRadio?.stationuuid ?? "idle"}
                             spinning={isPlaying}
-                            coverUrl={pickRadio ? getStationLogo(pickRadio.name, pickRadio.favicon, 0) : undefined}
+                            coverUrl={pickRadio?.stationuuid ? getStationLogo(pickRadio.name, pickRadio.favicon, 0) : undefined}
                             stationName={pickRadio?.name}
                         />
                     </div>

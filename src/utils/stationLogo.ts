@@ -19,15 +19,17 @@ export const getDeterministicFallback = (index: number): string =>
  * @param fallbackIndex - Index used to pick a deterministic generic image
  */
 export const getStationLogo = (
-  name: string,
+  name?: string,
   apiFavicon?: string,
   fallbackIndex = 0
 ): string => {
-  const normalizedName = name.toLowerCase();
+  const normalizedName = (name ?? "").trim().toLowerCase();
 
   // 1. Try local known logo
-  for (const [key, localLogo] of Object.entries(KNOWN_STATION_LOGOS)) {
-    if (normalizedName.includes(key)) return localLogo;
+  if (normalizedName) {
+    for (const [key, localLogo] of Object.entries(KNOWN_STATION_LOGOS)) {
+      if (normalizedName.includes(key)) return localLogo;
+    }
   }
 
   // 2. Try API favicon
